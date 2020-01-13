@@ -1,23 +1,28 @@
-#' Model Performance Plots
+#' Plot Model Performance Explanations
 #'
-#' @param x a model to be explained, preprocessed by the 'explain' function
+#' @param x a model to be explained, preprocessed by the \code{\link{explain}} function
 #' @param ... other parameters
 #' @param geom either \code{"ecdf"} or \code{"boxplot"} determines how residuals shall be summarized
 #' @param lossFunction function that calculates the loss for a model based on model residuals. By default it's the root mean square.
 #' @param show_outliers number of largest residuals to be presented (only when geom = boxplot).
 #' @param ptlabel either \code{"name"} or \code{"index"} determines the naming convention of the outliers
 #'
-#' @return An object of the class 'model_performance_explainer'.
+#' @return An object of the class \code{model_performance_explainer}.
 #'
 #' @export
 #' @examples
 #'  \dontrun{
 #' library("randomForest")
-#' HR_rf_model <- randomForest(status == "fired"~., data = HR, ntree = 100)
+#' HR_rf_model <- randomForest(as.factor(status == "fired")~., data = HR, ntree = 100)
 #' explainer_rf  <- explain(HR_rf_model, data = HR, y = HR$status == "fired")
 #' mp_rf <- model_performance(explainer_rf)
 #' plot(mp_rf)
 #' plot(mp_rf, geom = "boxplot", show_outliers = 1)
+#'
+#' HR_rf_model2 <- randomForest(as.factor(status == "fired")~age + hours, data = HR, ntree = 100)
+#' explainer_rf2  <- explain(HR_rf_model2, data = HR, y = HR$status == "fired")
+#' mp_rf2 <- model_performance(explainer_rf2)
+#' plot(mp_rf, mp_rf2)
 #'
 #' HR_glm_model <- glm(status == "fired"~., data = HR, family = "binomial")
 #' explainer_glm <- explain(HR_glm_model, data = HR, y = HR$status == "fired", label = "glm",
@@ -39,17 +44,8 @@ plot.model_performance_explainer <- function(x, ..., geom = "ecdf", show_outlier
   if (!(ptlabel %in% c("name", "index"))){
     stop("The plot.model_performance() function requires label to be name or index.")
   }
-  df <- x
-  class(df) <- "data.frame"
-  df$name <- seq.int(nrow(df))
-  dfl <- list(...)
-  if (length(dfl) > 0) {
-    for (resp in dfl) {
-      class(resp) <- "data.frame"
-      resp$name <- seq.int(nrow(resp))
-      df <- rbind(df, resp)
-    }
-  }
+  df <- combine_explainers(x, ...)
+
   df$label <- reorder(df$label, df$diff, lossFunction)
   label <- name <- NULL
   if (ptlabel == "name") {
@@ -61,7 +57,7 @@ plot.model_performance_explainer <- function(x, ..., geom = "ecdf", show_outlier
     pl <-   ggplot(df, aes(abs(diff), color = label)) +
       stat_ecdf(geom = "step") +
       theme_drwhy() +
-      scale_color_manual(name = "Model", values = theme_drwhy_colors(nlabels)) +
+      scale_color_manual(name = "Model", values = colors_discrete_drwhy(nlabels)) +
       xlab(expression(group("|", residual, "|"))) +
       scale_y_continuous(breaks = seq(0,1,0.1),
                          labels = paste(seq(100,0,-10),"%"),
@@ -73,7 +69,7 @@ plot.model_performance_explainer <- function(x, ..., geom = "ecdf", show_outlier
       stat_boxplot(alpha = 0.4, coef = 1000) +
       stat_summary(fun.y = lossFunction, geom="point", shape = 20, size=10, color="red", fill="red") +
       theme_drwhy_vertical() +
-      scale_fill_manual(name = "Model", values = theme_drwhy_colors(nlabels)) +
+      scale_fill_manual(name = "Model", values = colors_discrete_drwhy(nlabels)) +
       ylab("") + xlab("") +
       ggtitle(
         expression(paste("Boxplots of ", group("|", residual, "|"))),

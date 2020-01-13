@@ -3,20 +3,11 @@
 \name{theme_drwhy}
 \alias{theme_drwhy}
 \alias{theme_drwhy_vertical}
-\alias{theme_drwhy_colors}
-\alias{theme_drwhy_colors_break_down}
 \title{DrWhy Theme for ggplot objects}
 \usage{
 theme_drwhy()
 
 theme_drwhy_vertical()
-
-theme_drwhy_colors(n = 2)
-
-theme_drwhy_colors_break_down()
-}
-\arguments{
-\item{n}{number of colors for color palette}
 }
 \value{
 theme for ggplot2 objects

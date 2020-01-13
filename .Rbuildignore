@@ -6,4 +6,7 @@
 ^_pkgdown\.yml$
 .travis.yml
 vignettes/
+pkgdown/
 ^LICENSE$
+^CONTRIBUTING.md
+DALEXpiramide

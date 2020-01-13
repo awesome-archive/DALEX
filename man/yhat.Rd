@@ -5,10 +5,16 @@
 \alias{yhat.lm}
 \alias{yhat.randomForest}
 \alias{yhat.svm}
+\alias{yhat.gbm}
 \alias{yhat.glm}
+\alias{yhat.cv.glmnet}
+\alias{yhat.glmnet}
 \alias{yhat.ranger}
+\alias{yhat.model_fit}
+\alias{yhat.train}
+\alias{yhat.lrm}
 \alias{yhat.default}
-\title{Wrapper over the predict function}
+\title{Wrap Various Predict Functions}
 \usage{
 yhat(X.model, newdata, ...)
 
@@ -18,9 +24,21 @@ yhat(X.model, newdata, ...)
 
 \method{yhat}{svm}(X.model, newdata, ...)
 
+\method{yhat}{gbm}(X.model, newdata, ...)
+
 \method{yhat}{glm}(X.model, newdata, ...)
 
+\method{yhat}{cv.glmnet}(X.model, newdata, ...)
+
+\method{yhat}{glmnet}(X.model, newdata, ...)
+
 \method{yhat}{ranger}(X.model, newdata, ...)
+
+\method{yhat}{model_fit}(X.model, newdata, ...)
+
+\method{yhat}{train}(X.model, newdata, ...)
+
+\method{yhat}{lrm}(X.model, newdata, ...)
 
 \method{yhat}{default}(X.model, newdata, ...)
 }
@@ -35,7 +53,24 @@ yhat(X.model, newdata, ...)
 An numeric matrix of predictions
 }
 \description{
-This function is just a wrapper over the predict function.
-It sets different default parameters for models from different classes,
-like for classification random Forest is forces the output to be probabilities not classes itself.
+This function is a wrapper over various predict functions for different models and differnt model structures.
+The wrapper returns a single numeric score for each new observation.
+To do this it uses different extraction techniques for models from different classes,
+like for classification random forest is forces the output to be probabilities
+not classes itself.
+}
+\details{
+Currently supported packages are:
+\itemize{
+\item class `cv.glmnet` and `glmnet` - models created with `glmnet` package
+\item class `glm` - generalized linear models
+\item class `model_fit` - models created with `parsnip` package
+\item class `lm` - linear models created with `stats::lm`
+\item class `ranger` - models created with `ranger` package
+\item class `randomForest` - random forest models created with `randomForest` package
+\item class `svm` - support vector machines models created with the `e1071` package
+\item class `train` - models created with `caret` package
+\item class `gbm` - models created with `gbm` package
+\item class `lrm` - models created with `rms` package
+}
 }

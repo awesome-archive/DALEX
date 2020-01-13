@@ -1,37 +1,62 @@
-# DALEX <img src="man/figures/logo.png" align="right" />
+# Diagnose, understAnd, expLore, dEbug and eXplain machine learning models <img src="man/figures/logo.png" align="right" width="150"/>
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/DALEX)](https://cran.r-project.org/package=DALEX)
-[![Downloads](http://cranlogs.r-pkg.org/badges/DALEX)](http://cran.rstudio.com/package=DALEX)
-[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/DALEX?color=orange)](http://cranlogs.r-pkg.org/badges/grand-total/DALEX)
-[![Build Status](https://api.travis-ci.org/pbiecek/DALEX.png)](https://travis-ci.org/pbiecek/DALEX)
+[![Build Status](https://api.travis-ci.org/ModelOriented/DALEX.png)](https://travis-ci.org/ModelOriented/DALEX)
 [![Coverage
-Status](https://img.shields.io/codecov/c/github/pbiecek/DALEX/master.svg)](https://codecov.io/github/pbiecek/DALEX?branch=master)
+Status](https://img.shields.io/codecov/c/github/ModelOriented/DALEX/master.svg)](https://codecov.io/github/ModelOriented/DALEX?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/DALEX)](https://cran.r-project.org/package=DALEX)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/DALEX?color=orange)](http://cranlogs.r-pkg.org/badges/grand-total/DALEX)
+[![DrWhy-eXtrAI](https://img.shields.io/badge/DrWhy-BackBone-373589)](http://drwhy.ai/#BackBone)
 
-## DALEX: Descriptive mAchine Learning EXplanations
+## Overview
+
+Unverified black box model is the path to the failure. Opaqueness leads to distrust. Distrust leads to ignoration. Ignoration leads to rejection. 
+
+The `DALEX` package xrays any model and helps to explore and explain its behaviour, helps to understand how complex models are working. The main function `explain()` creates a wrapper around a predictive model. Wrapped models may then be explored and compared with a collection of local and global explainers. Recent developents from the area of Interpretable Machine Learning/eXplainable Artificial Intelligence. 
+
+The philosophy behind `DALEX` explanations is described in the [Predictive Models: Explore, Explain, and Debug](https://pbiecek.github.io/PM_VEE/) e-book. The `DALEX` package is a part of [DrWhy.AI](http://DrWhy.AI) universe. 
+
+If you work with `scikitlearn`, `keras`, `H2O`, `mljar` or `mlr`, you may be interested in the [DALEXtra](https://github.com/ModelOriented/DALEXtra) package. It is an extension pack for `DALEX` with easy to use connectors to models created in these libraries.
+
+<center><a href="https://pbiecek.github.io/PM_VEE/introduction.html#bookstructure"><img src="misc/DALEXpiramide.png" width="600"/></a></center>
+
+
+## Installation
+
+```{r}
+# the easiest way to get DALEX is to install it from CRAN:
+install.packages("DALEX")
+
+# Or the the development version from GitHub:
+# install.packages("devtools")
+devtools::install_github("ModelOriented/DALEX")
+```
+
+## Learn more 
 
 Machine Learning models are widely used and have various applications in classification or regression tasks. Due to increasing computational power, availability of new data sources and new methods, ML models are more and more complex. Models created with techniques like boosting, bagging of neural networks are true black boxes. It is hard to trace the link between input variables and model outcomes. They are use because of high performance, but lack of interpretability is one of their weakest sides.
 
 In many applications we need to know, understand or prove how input variables are used in the model and what impact do they have on final model prediction. `DALEX` is a set of tools that help to understand how complex models are working.
 
-`DALEX` is a part of [DrWhy.AI](http://DrWhy.AI) universe.
+## Cheatsheet
 
-Find more about DALEX in this [Gentle introduction to DALEX with examples](https://pbiecek.github.io/DALEX_docs/).
+<a href="https://github.com/ModelOriented/DALEX/raw/master/misc/cheatsheet_local_explainers.png"><img src="https://github.com/ModelOriented/DALEX/raw/master/misc/cheatsheet_local_explainers.png" width="500"/></a>
 
-Experimental Python version [pyDALEX](https://github.com/MI2DataLab/pyDALEX).
 
-## DALEX Stories
+### DALEX show-cases
 
-* [An interactive notebook with examples:](https://mybinder.org/v2/gh/pbiecek/DALEX_docs/master?filepath=jupyter-notebooks%2FDALEX.ipynb) [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/pbiecek/DALEX_docs/master?filepath=jupyter-notebooks%2FDALEX.ipynb)
-
-### How to use DALEX
-
-* [How to use DALEX with caret](https://rawgithub.com/pbiecek/DALEX_docs/master/vignettes/DALEX_caret.html)
-* [How to use DALEX with mlr](https://rawgithub.com/pbiecek/DALEX_docs/master/vignettes/DALEX_mlr.html)
-* [How to use DALEX with H2O](https://rawgit.com/pbiecek/DALEX_docs/master/vignettes/DALEX_h2o.html)
-* [How to use DALEX with xgboost package](https://rawgithub.com/pbiecek/DALEX_docs/master/vignettes/DALEX_and_xgboost.html)
-* [How to use DALEX for teaching. Part 1](https://rawgithub.com/pbiecek/DALEX_docs/master/vignettes/DALEX_teaching.html)
-* [How to use DALEX for teaching. Part 2](https://rawgit.com/pbiecek/DALEX_docs/master/examples/What%20they%20have%20learned%20-%20part%202.html)
-* [breakDown vs lime vs shapleyR](https://rawgit.com/pbiecek/DALEX_docs/master/vignettes/Comparison_between_breakdown%2C_lime%2C_shapley.html)
+* [XAI in the jungle of competing frameworks for machine learning](https://medium.com/@ModelOriented/xai-in-the-jungle-of-competing-frameworks-for-machine-learning-fa6e96a99644)
+* [Gentle introduction to DALEX with examples](https://pbiecek.github.io/DALEX_docs/) showt introduction to the `DALEX` package.
+* [How to compare models created in different languages](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/Multilanguages_comparision.html) crosscomparison of gbm and CatBoost in R / gbm in h2o / gbm in python
+* [How to use DALEX for fraud detection](https://rawgit.com/pbiecek/DALEX_docs/master/vignettes/DALEXverse%20and%20fraud%20detection.html)
+* [How to use DALEX with keras](https://rawgit.com/pbiecek/DALEX_docs/master/vignettes/DALEX_and_keras.html)
+* [How to use DALEX with parsnip](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_parsnip.html)
+* [How to use DALEX with caret](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_caret.html)
+* [How to use DALEX with mlr](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_mlr.html)
+* [How to use DALEX with H2O](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_h2o.html)
+* [How to use DALEX with xgboost package](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_and_xgboost.html)
+* [How to use DALEX for teaching. Part 1](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/DALEX_teaching.html)
+* [How to use DALEX for teaching. Part 2](https://raw.githack.com/pbiecek/DALEX_docs/master/examples/What%20they%20have%20learned%20-%20part%202.html)
+* [breakDown vs lime vs shapleyR](https://raw.githack.com/pbiecek/DALEX_docs/master/vignettes/Comparison_between_breakdown%2C_lime%2C_shapley.html)
 
 ### Talks about DALEX
 
@@ -40,47 +65,6 @@ Experimental Python version [pyDALEX](https://github.com/MI2DataLab/pyDALEX).
 * [Talk about DALEX at STWUR May 2018 (in Polish)](https://github.com/STWUR/eRementarz-29-05-2018)
 * [Talk about DALEX at BayArea 2018](https://github.com/pbiecek/Talks/blob/master/2018/DALEX_BayArea.pdf)
 * [Talk about DALEX at PyData Warsaw 2018](https://github.com/pbiecek/Talks/blob/master/2018/DALEX_PyDataWarsaw2018.pdf)
-
-## Install
-
-From CRAN
-
-```{r}
-install.packages("DALEX")
-```
-
-or from GitHub
-
-```{r}
-# dependencies
-devtools::install_github("MI2DataLab/factorMerger")
-devtools::install_github("pbiecek/breakDown")
-
-# DALEX package
-devtools::install_github("pbiecek/DALEX")
-```
-
-## Cheatsheets
-
-![DALEX_local](misc/DALEX_local.png)
-
-
-![Roadmap](https://raw.githubusercontent.com/pbiecek/DALEX_docs/master/images/Explain.png)
-
-![DALEX_intro](misc/DALEX_intro.png)
-
-
-## Single Variable
-
-![DALEX_single_variable](misc/DALEX_single_variable.png)
-
-## Single Prediction
-
-![DALEX_single_prediction](misc/DALEX_single_prediction.png)
-
-## Variable Drop-out / Importance
-
-![DALEX_variable_dropout](misc/DALEX_variable_dropout.png)
 
 
 ## Why

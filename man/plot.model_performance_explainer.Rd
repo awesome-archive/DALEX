@@ -2,14 +2,19 @@
 % Please edit documentation in R/plot_model_performance.R
 \name{plot.model_performance_explainer}
 \alias{plot.model_performance_explainer}
-\title{Model Performance Plots}
+\title{Plot Model Performance Explanations}
 \usage{
-\method{plot}{model_performance_explainer}(x, ..., geom = "ecdf",
-  show_outliers = 0, ptlabel = "name", lossFunction = function(x)
-  sqrt(mean(x^2)))
+\method{plot}{model_performance_explainer}(
+  x,
+  ...,
+  geom = "ecdf",
+  show_outliers = 0,
+  ptlabel = "name",
+  lossFunction = function(x) sqrt(mean(x^2))
+)
 }
 \arguments{
-\item{x}{a model to be explained, preprocessed by the 'explain' function}
+\item{x}{a model to be explained, preprocessed by the \code{\link{explain}} function}
 
 \item{...}{other parameters}
 
@@ -22,19 +27,24 @@
 \item{lossFunction}{function that calculates the loss for a model based on model residuals. By default it's the root mean square.}
 }
 \value{
-An object of the class 'model_performance_explainer'.
+An object of the class \code{model_performance_explainer}.
 }
 \description{
-Model Performance Plots
+Plot Model Performance Explanations
 }
 \examples{
  \dontrun{
 library("randomForest")
-HR_rf_model <- randomForest(status == "fired"~., data = HR, ntree = 100)
+HR_rf_model <- randomForest(as.factor(status == "fired")~., data = HR, ntree = 100)
 explainer_rf  <- explain(HR_rf_model, data = HR, y = HR$status == "fired")
 mp_rf <- model_performance(explainer_rf)
 plot(mp_rf)
 plot(mp_rf, geom = "boxplot", show_outliers = 1)
+
+HR_rf_model2 <- randomForest(as.factor(status == "fired")~age + hours, data = HR, ntree = 100)
+explainer_rf2  <- explain(HR_rf_model2, data = HR, y = HR$status == "fired")
+mp_rf2 <- model_performance(explainer_rf2)
+plot(mp_rf, mp_rf2)
 
 HR_glm_model <- glm(status == "fired"~., data = HR, family = "binomial")
 explainer_glm <- explain(HR_glm_model, data = HR, y = HR$status == "fired", label = "glm",

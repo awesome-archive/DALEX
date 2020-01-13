@@ -15,11 +15,12 @@ notifications:
 
 r_packages:
   - archivist
-  - pdp
   - ggplot2
-  - ALEPlot
-  - breakDown
   - covr
+  
+r_github_packages:
+  - ModelOriented/ingredients
+  - ModelOriented/iBreakDown
 
 after_success:
   - Rscript -e 'library(covr); codecov()'

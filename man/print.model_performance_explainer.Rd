@@ -2,7 +2,7 @@
 % Please edit documentation in R/model_performance.R
 \name{print.model_performance_explainer}
 \alias{print.model_performance_explainer}
-\title{Model Performance Summary}
+\title{Print Model Performance Summary}
 \usage{
 \method{print}{model_performance_explainer}(x, ...)
 }
@@ -12,11 +12,10 @@
 \item{...}{other parameters}
 }
 \description{
-Model Performance Summary
+Print Model Performance Summary
 }
 \examples{
  \dontrun{
-library("breakDown")
 library("randomForest")
 HR_rf_model <- randomForest(status == "fired"~., data = HR, ntree = 100)
 explainer_rf  <- explain(HR_rf_model, data = HR, y = HR$status == "fired")
